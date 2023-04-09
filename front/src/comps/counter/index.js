@@ -7,7 +7,14 @@ function Counter() {
     const [inputValue, setInputValue] = useState()
 
     useEffect(() => {
-        updateCounterValue("getCounter");
+        axios.get("getCounter")
+            .then(resp => {
+                setCounter(resp.data.counter);
+                setErr(null);
+            })
+            .catch(err => {
+                setErr(err);
+            })
     }, [])
 
     const updateCounterValue = (path) => {
